@@ -1,6 +1,6 @@
 ##  BARCODEPLOT.R
 
-barcodeplot <- function (statistics, index = NULL, index2 = NULL, gene.weights = NULL, weights.label = "Weight", labels = c("Down", "Up"), quantiles = c(-1,1)*sqrt(2), col.bars = NULL, alpha = 0.4, worm = TRUE, span.worm = 0.45, xlab = "Statistic", col.pos='pink', col.neg='lightblue', ...)
+barcodeplot <- function (statistics, index = NULL, index2 = NULL, gene.weights = NULL, weights.label = "Weight", labels = c("Down", "Up"), quantiles = c(-1,1)*sqrt(2), col.bars = NULL, alpha = 0.4, worm = TRUE, span.worm = 0.45, xlab = "Statistic", col.pos='pink', col.neg='lightblue', reverse.x = FALSE, ...)
 #	Barcode plot of one or two gene sets.
 #	Gordon Smyth, Di Wu and Yifang Hu
 #	20 October 2008.  Last revised 25 Oct 2019.
@@ -8,6 +8,8 @@ barcodeplot <- function (statistics, index = NULL, index2 = NULL, gene.weights =
 #	Check statistics
 	if(!is.vector(statistics, mode = "numeric")) stop("statistics should be a numeric vector")
 	nstat <- length(statistics)
+
+    statistics <- ifelse(reverse.x, -1, 1)*statistics
 
 #	Check index
 	if(is.null(index)) {
@@ -324,7 +326,8 @@ barcodeplot <- function (statistics, index = NULL, index2 = NULL, gene.weights =
 
 	# label statistics on x axis
 	prob <- (0:10)/10
-	axis(at = seq(1,n,len=11), side = 1, cex.axis = 0.7, las = 2, labels = format(quantile(statistics, p = prob), digits = 1))
+	axis(at = seq(1,n,len=11), side = 1, cex.axis = 0.7, las = 2, 
+         labels = format(ifelse(reverse.x, -1, 1) * quantile(statistics, p = prob), digits = 1))
 
 	# create worm
 	if(worm) {
