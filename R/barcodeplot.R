@@ -1,6 +1,6 @@
 ##  BARCODEPLOT.R
 
-barcodeplot <- function (statistics, index = NULL, index2 = NULL, gene.weights = NULL, weights.label = "Weight", labels = c("Down", "Up"), quantiles = c(-1,1)*sqrt(2), col.bars = NULL, alpha = 0.4, worm = TRUE, span.worm = 0.45, xlab = "Statistic", ...)
+barcodeplot <- function (statistics, index = NULL, index2 = NULL, gene.weights = NULL, weights.label = "Weight", labels = c("Down", "Up"), quantiles = c(-1,1)*sqrt(2), col.bars = NULL, alpha = 0.4, worm = TRUE, span.worm = 0.45, xlab = "Statistic", col.pos='pink', col.neg='lightblue', ...)
 #	Barcode plot of one or two gene sets.
 #	Gordon Smyth, Di Wu and Yifang Hu
 #	20 October 2008.  Last revised 25 Oct 2019.
@@ -288,8 +288,8 @@ barcodeplot <- function (statistics, index = NULL, index2 = NULL, gene.weights =
 		rect.yt <- 1
 
 		rect(nneg + 0.5, rect.yb, n - npos + 0.5, rect.yt, col = "lightgray", border = NA)
-		if (nneg) rect(0.5, rect.yb, nneg + 0.5, rect.yt, col = "lightblue", border = NA)
-		if (npos) rect(n - npos + 0.5, rect.yb, n + 0.5, rect.yt, col = "pink", border = NA)
+		if (nneg) rect(0.5, rect.yb, nneg + 0.5, rect.yt, col = col.neg, border = NA)
+		if (npos) rect(n - npos + 0.5, rect.yb, n + 0.5, rect.yt, col = col.pos, border = NA)
 		
 		segments(r, barlim[2]/2, r, barlim[2], lwd = lwd, col = col.bars.alpha[1])
 		segments(r, barlim[2]/2-shift, r, barlim[2]/2*(1+len.up)-shift, lwd = lwd, col = col.bars[1])
@@ -302,8 +302,8 @@ barcodeplot <- function (statistics, index = NULL, index2 = NULL, gene.weights =
 		rect.yt <- 0.5
 		
 		rect(nneg + 0.5, rect.yb, n - npos + 0.5, rect.yt, col = "lightgray", border = NA)
-		if (nneg) rect(0.5, rect.yb, nneg + 0.5, rect.yt, col = "lightblue", border = NA)
-		if (npos) rect(n - npos + 0.5, rect.yb, n + 0.5, rect.yt, col = "pink", border = NA)
+		if (nneg) rect(0.5, rect.yb, nneg + 0.5, rect.yt, col = col.neg, border = NA)
+		if (npos) rect(n - npos + 0.5, rect.yb, n + 0.5, rect.yt, col = col.pos, border = NA)
 
 		segments(r, barlim[1], r, barlim[2]/2, lwd = lwd, col = col.bars.alpha[1])
 		segments(r, barlim[2]/2+shift, r, barlim[2]/2*(1+len.up)+shift, lwd = lwd, col = col.bars[1])
